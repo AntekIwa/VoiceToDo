@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play
 import os
+load_dotenv()
 
 class Audio:
     def __init__(self, voice_id = "vfaqCOvlrKi4Zp7C2IAm", model_id = "eleven_multilingual_v2"):
@@ -21,8 +22,32 @@ class Audio:
         play(audio)
 
     def task_added(self, task):
-        self.speak(f"Zadanie '{task}' zostało dodane.")
+        self.speak(f"Zadanie '{task}' zostało dodane ... ")
 
+    def ordinal(self, n):
+        return {
+            1: "Pierwsze",
+            2: "Drugie",
+            3: "Trzecie",
+            4: "Czwarte",
+            5: "Piąte"
+        }.get(n, f"Zadanie numer {n}")
 
-ass = Audio()
-ass.task_added("matma")
+    def read_list(self, tasks):
+        if not tasks:
+            self.list_empty()
+            return
+
+        spoken = "Oto twoja lista zadań. "
+        for i, task in enumerate(tasks, 1):
+            spoken += f"{self.ordinal(i)} zadanie. {task}. "
+        self.speak(spoken)
+
+ad = Audio()
+#ad.task_added("matma")
+ad.read_list(["matma", "polski"])
+
+#FF7KdobWPaiR0vkcALHF
+#vfaqCOvlrKi4Zp7C2IAm
+#QttbagfgqUCm9K0VgUyT
+#iK3JGPDhpWyubGKeK29u
