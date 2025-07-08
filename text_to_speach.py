@@ -5,7 +5,7 @@ import os
 load_dotenv()
 
 class Audio:
-    def __init__(self, voice_id = "vfaqCOvlrKi4Zp7C2IAm", model_id = "eleven_multilingual_v2"):
+    def __init__(self, voice_id = "iK3JGPDhpWyubGKeK29u", model_id = "eleven_multilingual_v2"):
         load_dotenv()  # załaduj dane z pliku .env
         api_key = os.getenv("ELEVEN_API_KEY")
         self.client = ElevenLabs(api_key=api_key)
@@ -24,7 +24,28 @@ class Audio:
     def task_added(self, task):
         self.speak(f"Zadanie '{task}' zostało dodane ... ")
 
+    def task_exist(self, task):
+        self.speak(f"BŁĄD!!! ... Zadanie '{task}' jest już na Twojej liście")
+
+    def task_deleted(self, task):
+        self.speak(f"Usunięto zadanie: {task}.")
+
+    def task_not_found(self, task):
+        self.speak(f"Nie znaleziono zadania: {task}.")
+
+    def task_index_invalid(self, idx):
+        self.speak(f"Zadanie o numerze {idx} nie istnieje.")
+
+    def list_size(self, size):
+        if size == 0:
+            self.speak("Twoja lista zadań jest pusta!!!")
+        elif size == 1:
+            self.speak("Na liście jest jedno zadanie.")
+        else:
+            self.speak(f"Na liście znajduje się {size} zadań.")
+
     def ordinal(self, n):
+        # tylko 1-5 – wystarczy do testów
         return {
             1: "Pierwsze",
             2: "Drugie",
@@ -33,7 +54,7 @@ class Audio:
             5: "Piąte"
         }.get(n, f"Zadanie numer {n}")
 
-    def read_list(self, tasks):
+    def read_list(self, tasks): 
         if not tasks:
             self.list_empty()
             return
@@ -44,8 +65,9 @@ class Audio:
         self.speak(spoken)
 
 ad = Audio()
-#ad.task_added("matma")
-ad.read_list(["matma", "polski"])
+ad.task_exist("matma")
+ad.list_size(0)
+#ad.read_list(["matma", "polski"])
 
 #FF7KdobWPaiR0vkcALHF
 #vfaqCOvlrKi4Zp7C2IAm
