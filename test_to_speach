@@ -1,0 +1,8 @@
+from elevenlabs.client import ElevenLabs
+
+client = ElevenLabs(
+  api_key="",
+)
+
+response = client.voices.search()
+print(response.voices)
