@@ -1,8 +1,16 @@
+from dotenv import load_dotenv
 from elevenlabs.client import ElevenLabs
+from elevenlabs import play
 
-client = ElevenLabs(
-  api_key="",
-)
+load_dotenv()
 
-response = client.voices.search()
-print(response.voices)
+client = ElevenLabs(api_key = "")
+def tst(text):
+    audio = client.text_to_speech.convert(
+        text=text,
+        voice_id="JBFqnCBsd6RMkjVDRZzb",
+        model_id="eleven_multilingual_v2",
+        output_format="mp3_44100_128",
+    )
+
+    play(audio)
