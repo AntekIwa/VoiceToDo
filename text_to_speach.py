@@ -54,9 +54,9 @@ class Audio:
             5: "Piąte"
         }.get(n, f"Zadanie numer {n}")
 
-    def read_list(self, tasks): 
+    def read_list(self, tasks):
         if not tasks:
-            self.list_empty()
+            self.list_size(0)
             return
 
         spoken = "Oto twoja lista zadań. "
