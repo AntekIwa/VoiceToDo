@@ -5,7 +5,7 @@ VoiceToDo is a simple voice-controlled to-do list application written in Python.
 ## Features
 
 - Add tasks using voice commands
-- Delete tasks by voice (by task number)
+- Delete tasks by voice
 - Listen to voice feedback for confirmation
 - View current to-do list in terminal
 
