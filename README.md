@@ -1,4 +1,4 @@
-# VoiceToDo **Work in Progress** – not yet ready
+# VoiceToDo [Work in Progress – not yet ready]
 
 VoiceToDo is a simple voice-controlled to-do list application written in Python. It uses OpenAI Whisper for speech recognition and ElevenLabs for text-to-speech feedback.
 
