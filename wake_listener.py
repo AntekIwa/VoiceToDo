@@ -10,9 +10,9 @@ import os
 SAMPLE_RATE = 16000
 FRAME_DURATION_MS = 30                     # długość jednej ramki w ms
 FRAME_SIZE = int(SAMPLE_RATE * FRAME_DURATION_MS / 1000)
-MAX_SILENCE_MS = 500                       # po 0.5 s ciszy przerywamy nagranie
+MAX_SILENCE_MS = 2000                       # po 0.5 s ciszy przerywamy nagranie
 vad = webrtcvad.Vad(3)                     # 0–3: 3 = najwyższa czułość
-model = whisper.load_model("medium")       # lub "base"/"small"/"large"
+model = whisper.load_model("large")       # lub "base"/"small"/"large"
 
 def record_until_silence():
     print("🎤 Czekam na początek mowy...")
@@ -27,7 +27,7 @@ def record_until_silence():
         data, _ = stream.read(FRAME_SIZE)
         pcm = data.tobytes()
         if vad.is_speech(pcm, SAMPLE_RATE):
-            print("🔊 Mowa wykryta, nagrywanie...")
+           # print("🔊 Mowa wykryta, nagrywanie...")
             break
 
     # teraz faktyczne buforowanie od pierwszej ramki mowy
@@ -41,14 +41,14 @@ def record_until_silence():
 
         if is_speech:
             silence_ms = 0
-            print("🔊 mowa")
+            #print("🔊 mowa")
             audio_buffer.append(data)
         else:
             silence_ms += FRAME_DURATION_MS
-            print(f"🤫 cisza ({silence_ms} ms)")
+            #print(f"🤫 cisza ({silence_ms} ms)")
             audio_buffer.append(data)
             if silence_ms > MAX_SILENCE_MS:
-                print("⏹️ Koniec nagrania (cisza).")
+             #   print("⏹️ Koniec nagrania (cisza).")
                 break
 
     stream.stop()
